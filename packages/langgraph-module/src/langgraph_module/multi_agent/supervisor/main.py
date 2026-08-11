@@ -1,7 +1,7 @@
 from dotenv import load_dotenv
 from langgraph.graph import StateGraph
 from langgraph.types import RunnableConfig
-from supervisor import graph as supervisor_graph, SupervisorState
+from .supervisor import graph as supervisor_graph, SupervisorState
 from langchain_core.messages import HumanMessage, AIMessageChunk
 from rich.console import Console
 from rich.panel import Panel

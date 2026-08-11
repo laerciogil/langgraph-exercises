@@ -1,4 +1,5 @@
 import operator
+from importlib import resources
 from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
 from pydantic import BaseModel
@@ -12,10 +13,11 @@ from langgraph.prebuilt import InjectedState
 
 load_dotenv()
 
-# Load the copywriter system prompt and content examples
-copywriter_prompt = open("prompts/copywriter.md", "r").read()
-linkedin_example = open("example_content/linkedin.md", "r").read()
-blog_example = open("example_content/blog.md", "r").read()
+# Load prompts and content examples from the installed package resources.
+package_resources = resources.files(__package__)
+copywriter_prompt = (package_resources / "prompts" / "copywriter.md").read_text(encoding="utf-8")
+linkedin_example = (package_resources / "example_content" / "linkedin.md").read_text(encoding="utf-8")
+blog_example = (package_resources / "example_content" / "blog.md").read_text(encoding="utf-8")
 
 
 class CopyWriterState(BaseModel):

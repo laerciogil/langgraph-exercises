@@ -9,14 +9,15 @@ from langgraph.prebuilt import ToolNode
 from langchain_core.tools import tool, InjectedToolCallId
 from langgraph.checkpoint.memory import MemorySaver
 from datetime import datetime
-from researcher import graph as research_agent
-from copywriter import graph as copywriter_agent
+from importlib import resources
+from .researcher import graph as research_agent
+from .copywriter import graph as copywriter_agent
 from langgraph.types import Command, RunnableConfig
 
 load_dotenv()
 
-# Load the supervisor system prompt
-supervisor_prompt = open("prompts/supervisor.md", "r").read()
+# Load the supervisor system prompt from the installed package resources.
+supervisor_prompt = (resources.files(__package__) / "prompts" / "supervisor.md").read_text(encoding="utf-8")
 
 
 class SupervisorState(BaseModel):

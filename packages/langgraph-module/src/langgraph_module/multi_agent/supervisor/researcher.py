@@ -1,4 +1,5 @@
 import operator
+from importlib import resources
 from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
 from pydantic import BaseModel
@@ -14,8 +15,8 @@ from langgraph.types import Command
 
 load_dotenv()
 
-# Load the researcher system prompt
-researcher_prompt = open("prompts/researcher.md", "r").read()
+# Load the researcher system prompt from the installed package resources.
+researcher_prompt = (resources.files(__package__) / "prompts" / "researcher.md").read_text(encoding="utf-8")
 
 
 @tool
